@@ -1,0 +1,33 @@
+--Create a Beauty Brand store database
+
+
+
+CREATE TABLE beauty_brand (id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, price INTEGER, original_price INTEGER);
+INSERT INTO beauty_brand VALUES(1, "lipgloss", 20, 4.50, 3.00);
+INSERT INTO beauty_brand VALUES(2, "eyelashes", 30, 9.99, 5.00);
+INSERT INTO beauty_brand VALUES(3, "blush", 10, 10.00, 6.00);
+INSERT INTO beauty_brand VALUES(4, "foundation", 40, 30.00, 18.00); 
+INSERT INTO beauty_brand VALUES(5, "eyebrow", 4, 3.00, 1.50);
+INSERT INTO beauty_brand VALUES(6, "highlighter", 3, 12.00, 6.50);
+INSERT INTO beauty_brand VALUES(7, "lipstick", 30, 7.50, 4.00);
+INSERT INTO beauty_brand VALUES(8, "pencils", 5, 3, 6.00);
+INSERT INTO beauty_brand VALUES(9, "eyeshadow", 20, 15.00, 7.40);
+INSERT INTO beauty_brand VALUES(10, "eyeliner", 1, 8.00, 5.00);
+INSERT INTO beauty_brand VALUES(12, "contour", 3, 9.99, 5.30);
+INSERT INTO beauty_brand VALUES(13, "masacara", 1, 9.99, 6.00);
+INSERT INTO beauty_brand VALUES(14, "liquid_lipstick", 20, 10.50, 5.50);
+INSERT INTO beauty_brand VALUES(15, "powder", 4, 10.00, 6.00);
+
+--display the database order by price
+SELECT * FROM beauty_brand
+ORDER BY price;
+
+--what is the total price of all the items in the store?
+SELECT sum(price) from beauty_brand;
+
+--what is the total original price from vendors for each item?
+SELECT sum(original_price) FROM beauty_brand;
+
+--what is the profit made between original price and price?
+SELECT sum(price-original_price)profit from beauty_brand;
+
