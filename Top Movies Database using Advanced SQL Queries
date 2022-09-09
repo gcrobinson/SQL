@@ -1,0 +1,32 @@
+/* Source for table: https://gist.github.com/pamelafox/c705b02114ea3db0dff0/ */
+
+/* What are average, max, and min values in the data? */
+
+SELECT studio, avg(Worldwide) AS 'avg_worldwide'FROM topmovies GROUP by studio;
+SELECT studio, max(Worldwide) AS 'max_worldwide' FROM topmovies GROUP by studio;
+SELECT studio, min(Worldwide) AS 'min_worldwide' FROM topmovies GROUP by studio;
+
+/* What about those numbers per category in the data? */
+
+SELECT studio, avg(Worldwide) AS 'avg_worldwide'FROM topmovies GROUP by studio
+HAVING avg_worldwide>900.00 ;
+SELECT studio, max(Worldwide) AS 'max_worldwide' FROM topmovies GROUP by studio
+HAVING max_worldwide>=2000.00;
+SELECT studio, min(Worldwide) AS 'min_worldwide' FROM topmovies GROUP by studio
+HAVING min_worldwide<=600.00;
+
+/* What ways are there to group the data values that don’t exist yet.
+Pirates of the Caribbean: On Stranger Tides — $422M
+The most expensive movie ever made: Pirates of the Caribbean: On Stranger Tides a $400 million budget; MovieWebhttps://movieweb.com/*/
+
+SELECT title, studio,
+    CASE 
+        WHEN Worldwide>ROUND(2700.00-400.00) THEN "above max"
+        WHEN Worldwide>ROUND(800-400.00) THEN "within target"
+        ELSE "below target"
+    END as "budget"
+FROM topmovies;
+
+/*What interesting ways are there to filter the data*/
+SELECT studio FROM topmovies WHERE (domestic<600.00 AND year<=1990);
+SELECT title FROM topmovies WHERE (domesticpct<=0.20 OR overseaspct<=0.20);
