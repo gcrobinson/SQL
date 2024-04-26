@@ -1,0 +1,96 @@
+--In the MariaDB Shell, I have to determine which employee devices must be updated. I also need to investigate user login activity to explore if any unusual activity has occurred.
+
+
+#1. I need to obtain information on employee devices because my team needs to update them.
+SELECT *
+FROM machines;
+--The output returns all the contents of the machines table:
+
++--------------+------------------+----------------+---------------+-------------+
+| device_id    | operating_system | email_client   | OS_patch_date | employee_id |
++--------------+------------------+----------------+---------------+-------------+
+| a184b775c707 | OS 1             | Email Client 1 | 2021-09-01    |        1156 |
+| a192b174c940 | OS 2             | Email Client 1 | 2021-06-01    |        1052 |
+| a305b818c708 | OS 3             | Email Client 2 | 2021-06-01    |        1182 |
+| a317b635c465 | OS 1             | Email Client 2 | 2021-03-01    |        1130 |
+| a320b137c219 | OS 2             | Email Client 2 | 2021-03-01    |        1000 |
+|...           |                  |                |               |             |
+
+
+
+#2. Here we are focused on the email client 2 who is running various devices. 
+SELECT device_id, email_client
+FROM machines;
++--------------+----------------+
+| device_id    | email_client   |
++--------------+----------------+
+| a184b775c707 | Email Client 1 |
+| a192b174c940 | Email Client 1 |
+| a305b818c708 | Email Client 2 |
+| a317b635c465 | Email Client 2 |
+| a320b137c219 | Email Client 2 |
+
+
+
+#3. I need information on the operating systems used on various devices and their last patch date.
+SELECT device_id, operating_system, OS_patch_date
+FROM machines;
+--Outut:
++--------------+------------------+---------------+
+| device_id    | operating_system | OS_patch_date |
++--------------+------------------+---------------+
+| a184b775c707 | OS 1             | 2021-09-01    |
+| a192b174c940 | OS 2             | 2021-06-01    |
+| a305b818c708 | OS 3             | 2021-06-01    |
+| a317b635c465 | OS 1             | 2021-03-01    |
+| a320b137c219 | OS 2             | 2021-03-01    |
+
+
+#4. I need to investigate the locations where login attempts were made to ensure that they’re in expected areas (the United States, Canada, or Mexico).
+SELECT event_id, country
+FROM log_in_attempts;
+
+--Output:
++----------+---------+
+| event_id | country |
++----------+---------+
+|        1 | CAN     |
+|        2 | CAN     |
+|        3 | USA     |
+|        4 | USA     |
+|        5 | CANADA  |
+|        6 | MEXICO  |
+|        7 | CAN     |
+|        8 | US      |
+|        9 | MEX     |
+
+
+#5. I need to check if login attempts were made outside of the organization's working hours.
+SELECT username, login_date, login_time
+FROM log_in_attempts;
+--Output:
++----------+------------+------------+
+| username | login_date | login_time |
++----------+------------+------------+
+| jrafael  | 2022-05-09 | 04:56:27   |
+| apatel   | 2022-05-10 | 20:27:27   |
+| dkot     | 2022-05-09 | 06:47:41   |
+| dkot     | 2022-05-08 | 02:00:39   |
+| jrafael  | 2022-05-11 | 03:05:59   |
+
+
+#6. Lastly, I need to further organize the previous results by ordering them by login date and login time.
+SELECT *
+FROM log_in_attempts
+ORDER BY login_date, login_time;
+--Output:
++----------+----------+------------+------------+---------+-----------------+---------+
+| event_id | username | login_date | login_time | country | ip_address      | success |
++----------+----------+------------+------------+---------+-----------------+---------+
+|      117 | bsand    | 2022-05-08 | 00:19:11   | USA     | 192.168.197.187 |       0 |
+|       92 | pwashing | 2022-05-08 | 00:36:12   | US      | 192.168.247.219 |       0 |
+|        8 | bisles   | 2022-05-08 | 01:30:17   | US      | 192.168.119.173 |       0 |
+|        4 | dkot     | 2022-05-08 | 02:00:39   | USA     | 192.168.178.71  |       0
+
+--In summary I have gathered information from the machines and login_attempts tables in the organization database to determine which employee devices must be updated. 
+I also have information needed to collect data on user login activity to explore if any unusual activity has occurred.
