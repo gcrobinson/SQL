@@ -1,4 +1,5 @@
---In the MariaDB Shell, I have to determine which employee devices must be updated. I also need to investigate user login activity to explore if any unusual activity has occurred.
+--Using Qwiklabs for my SQL inquiries, I'll be working on the MariaDB Shell to identify which employee devices require updates. 
+--Additionally, I'll be examining user login activity to detect any signs of unusual behavior.
 
 
 #1. I need to obtain information on employee devices because my team needs to update them.
